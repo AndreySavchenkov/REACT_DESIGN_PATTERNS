@@ -1,18 +1,12 @@
-import Modal from "./components/Modal";
-import SmallBookListItems from "./components/books/SmallListItems";
-import RegularList from "./components/lists/Regular";
-import { books } from "./data/books";
+import { CurrentUserLoader } from "./components/current-user-loader";
+import { UserInfo } from "./components/user-info";
 
 function App() {
   return (
     <>
-      <Modal>
-        <RegularList
-          items={books}
-          sourceName="book"
-          ItemComponent={SmallBookListItems}
-        />
-      </Modal>
+      <CurrentUserLoader>
+        <UserInfo />
+      </CurrentUserLoader>
     </>
   );
 }
