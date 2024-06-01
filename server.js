@@ -13,24 +13,28 @@ let currentUser = {
 
 let users = [
   {
+    id: "1",
     name: "Andrei Sauchankau",
     age: 34,
     country: "Poland",
     books: ["First Book"],
   },
   {
+    id: "2",
     name: "Sarah Waters",
     age: 55,
     country: "United Kingdom",
     books: ["Fingersmith", "The Night Watch"],
   },
   {
+    id: "3",
     name: "Haruki Murakami",
     age: 71,
     country: "Japan",
     books: ["Norwegian Wood", "Kafka on the Shore"],
   },
   {
+    id: "4",
     name: "Grimanda Ngozi Adichie",
     age: 43,
     country: "Nigeria",
@@ -40,18 +44,21 @@ let users = [
 
 let books = [
   {
+    id: "1",
     name: "To kill a Mockingbird",
     pages: 281,
     title: "Harper Lee",
     price: 12.99,
   },
   {
+    id: "2",
     name: "To Catcher in teh Rye",
     pages: 224,
     title: "J.D. Salinger",
     price: 9.99,
   },
   {
+    id: "3",
     name: "To Little Prince",
     pages: 85,
     title: "Antone de Saint-Exupéry",
