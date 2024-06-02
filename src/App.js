@@ -1,11 +1,6 @@
 import axios from "axios";
-import { BookInfo } from "./components/book-info";
-import { CurrentUserLoader } from "./components/current-user-loader";
-import { DataSource } from "./components/data-source";
-import { ResourceLoader } from "./components/recource-loader";
 import { UserInfo } from "./components/user-info";
-import { UserLoader } from "./components/user-loader";
-import { async } from "q";
+import { DataSourceWithRender } from "./components/data-source-wit-render";
 
 const getDataFromServer = async (url) => {
   const response = await axios.get(url);
@@ -15,12 +10,10 @@ const getDataFromServer = async (url) => {
 function App() {
   return (
     <>
-      <DataSource
+      <DataSourceWithRender
         getData={() => getDataFromServer("/users/2")}
-        resourceName="user"
-      >
-        <UserInfo />
-      </DataSource>
+        render={(resource) => <UserInfo user={resource} />}
+      />
     </>
   );
 }
