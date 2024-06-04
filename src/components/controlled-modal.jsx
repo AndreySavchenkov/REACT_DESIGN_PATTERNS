@@ -18,16 +18,13 @@ const ModalContent = styled.div`
   width: 50%;
 `;
 
-const Modal = ({ children }) => {
-  const [show, setShow] = useState(false);
-
+const ControlledModal = ({ shouldDisplay, onClose, children }) => {
   return (
     <>
-      <button onClick={() => setShow(true)}>Show Modal</button>
-      {show && (
-        <ModalBackground onClick={() => setShow(false)}>
+      {shouldDisplay && (
+        <ModalBackground onClick={onClose}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setShow(false)}>Hide Modal</button>
+            <button onClick={onClose}>Hide Modal</button>
             {children}
           </ModalContent>
         </ModalBackground>
@@ -36,4 +33,4 @@ const Modal = ({ children }) => {
   );
 };
 
-export default Modal;
+export default ControlledModal;
