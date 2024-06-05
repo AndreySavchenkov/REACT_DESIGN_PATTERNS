@@ -1,20 +1,38 @@
-import ControlledModal from "./components/controlled-modal";
-import { useState } from "react";
+import { UncontrolledFlow } from "./components/uncontrolled-flow";
 
-function App() {
-  const [shouldDisplay, setShouldDisplay] = useState(false);
-
+const StepOne = ({ goNext }) => {
   return (
     <>
-      <ControlledModal
-        shouldDisplay={shouldDisplay}
-        onClose={() => setShouldDisplay(false)}
-      >
-        <h3>text in modal</h3>
-      </ControlledModal>
-      <button onClick={() => setShouldDisplay(!shouldDisplay)}>
-        {shouldDisplay ? "Hide Modal" : "Display Modal"}
-      </button>
+      <h1>Step #1</h1>
+      <button onClick={goNext}>Next</button>
+    </>
+  );
+};
+const StepTwo = ({ goNext }) => {
+  return (
+    <>
+      <h1>Step #2</h1>
+      <button onClick={goNext}>Next</button>
+    </>
+  );
+};
+const StepThree = ({ goNext }) => {
+  return (
+    <>
+      <h1>Step #3</h1>
+      <button onClick={goNext}>Next</button>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <>
+      <UncontrolledFlow>
+        <StepOne />
+        <StepTwo />
+        <StepThree />
+      </UncontrolledFlow>
     </>
   );
 }
