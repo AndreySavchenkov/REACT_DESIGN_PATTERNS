@@ -1,12 +1,9 @@
-import { UserInfo } from "./components/user-info";
-import { includeUser } from "./components/include-user";
-
-const UserInfoWithLoader = includeUser(UserInfo, "3");
+import { UserInfoForm } from "./components/user-form";
 
 function App() {
   return (
     <>
-      <UserInfoWithLoader />
+      <UserInfoForm />
     </>
   );
 }
