@@ -1,9 +1,9 @@
-import { UserInfoForm } from "./components/user-form";
+import { UserInfo } from "./components/user-info";
 
 function App() {
   return (
     <>
-      <UserInfoForm />
+      <UserInfo />
     </>
   );
 }
