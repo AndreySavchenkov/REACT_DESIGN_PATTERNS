@@ -1,14 +1,16 @@
-import { Child } from "./components/child";
-import { ErrorBoundary } from "./components/error-boundary";
+import { useState } from "react";
+import { Counter } from "./components/new-counter";
 
 function App() {
+  const [changeShirts, setChangeShirts] = useState(false);
+
   return (
-    <>
-      <h1>Parent Component</h1>
-      <ErrorBoundary fallback={<h1>Error at Child Level</h1>}>
-        <Child />
-      </ErrorBoundary>
-    </>
+    <div>
+      {changeShirts ? <span>Shirts count: </span> : <span>Shoes count: </span>}
+      <input type="number" key={changeShirts ? "shoes" : "shirts"} />
+      <br />
+      <button onClick={() => setChangeShirts((s) => !s)}>Switch</button>
+    </div>
   );
 }
 
