@@ -1,17 +1,40 @@
 import { useState } from "react";
-import { Counter } from "./components/new-counter";
+import { createPortal } from "react-dom";
 
 function App() {
-  const [changeShirts, setChangeShirts] = useState(false);
+  const [show, setShow] = useState(false);
 
   return (
-    <div>
-      {changeShirts ? <span>Shirts count: </span> : <span>Shoes count: </span>}
-      <input type="number" key={changeShirts ? "shoes" : "shirts"} />
-      <br />
-      <button onClick={() => setChangeShirts((s) => !s)}>Switch</button>
+    <div
+      onClickCapture={() => console.log("Outer div")}
+      style={{ position: "absolute", marginTop: "200px" }}
+    >
+      <h1>Other Content</h1>
+      <button onClick={() => setShow(true)}>Show Message</button>
+      <Alert show={show} onClose={() => setShow(false)}>
+        A sample message to show.
+        <br />
+        Click it to close
+      </Alert>
     </div>
   );
 }
+
+const Alert = ({ children, onClose, show }) => {
+  if (!show) return;
+
+  return createPortal(
+    <div
+      className="alert"
+      onClickCapture={() => {
+        onClose();
+        console.log("Inner div");
+      }}
+    >
+      {children}
+    </div>,
+    document.querySelector("#alert-holder")
+  );
+};
 
 export default App;
