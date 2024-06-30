@@ -1,40 +1,33 @@
-import { useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 function App() {
   const [show, setShow] = useState(false);
+  const [top, setTop] = useState(0);
+  const buttonRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (buttonRef.current === null || !show) return setTop(0);
+    const { bottom } = buttonRef.current.getBoundingClientRect();
+    setTop(bottom + 30);
+  }, [show]);
+
+  const now = performance.now();
+  while(now > performance.now() - 100) {
+    //Do something
+  }
 
   return (
-    <div
-      onClickCapture={() => console.log("Outer div")}
-      style={{ position: "absolute", marginTop: "200px" }}
-    >
-      <h1>Other Content</h1>
-      <button onClick={() => setShow(true)}>Show Message</button>
-      <Alert show={show} onClose={() => setShow(false)}>
-        A sample message to show.
-        <br />
-        Click it to close
-      </Alert>
-    </div>
+    <>
+      <button ref={buttonRef} onClick={() => setShow((s) => !s)}>
+        Show
+      </button>
+      {show && (
+        <div className="tooltip" style={{position: 'absolute', top: `${top}px` }}>
+          Some text...
+        </div>
+      )}
+    </>
   );
 }
-
-const Alert = ({ children, onClose, show }) => {
-  if (!show) return;
-
-  return createPortal(
-    <div
-      className="alert"
-      onClickCapture={() => {
-        onClose();
-        console.log("Inner div");
-      }}
-    >
-      {children}
-    </div>,
-    document.querySelector("#alert-holder")
-  );
-};
 
 export default App;
