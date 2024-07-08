@@ -1,11 +1,19 @@
-import { Form } from "./components/form";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 function App() {
+  const [showInput, setShowInput] = useState(false);
+  const realInputRef = useRef();
+
+  const inputRef = useCallback((input) => {
+    realInputRef.current = input;
+    if (input === null) return;
+    input.focus();
+  }, []);
+
   return (
     <>
-      <Form />
-      <p>Some text</p>
-      <Form />
+      <button onClick={() => setShowInput((s) => !s)}>Show</button>
+      {showInput && <input type="text" ref={inputRef} />}
     </>
   );
 }
