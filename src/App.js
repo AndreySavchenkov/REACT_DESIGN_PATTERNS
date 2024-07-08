@@ -1,19 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { Input } from "./components/custom-input";
 
 function App() {
-  const [showInput, setShowInput] = useState(false);
-  const realInputRef = useRef();
-
-  const inputRef = useCallback((input) => {
-    realInputRef.current = input;
-    if (input === null) return;
-    input.focus();
-  }, []);
+  const inputRef = useRef();
 
   return (
     <>
-      <button onClick={() => setShowInput((s) => !s)}>Show</button>
-      {showInput && <input type="text" ref={inputRef} />}
+      <Input type="text" ref={inputRef} />
+      <button onClick={() => console.log(inputRef.current.value)}>Focus</button>
     </>
   );
 }
