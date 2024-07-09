@@ -1,15 +1,31 @@
-import { useDeferredValue, useState } from "react";
-import { HeavyComponent } from "./components/heavy-component";
+import { useState, useTransition } from "react";
+import Reviews from "./components/reviews";
 
 function App() {
-  const [keyword, setKeyword] = useState("");
+  const [section, setSection] = useState("Cover");
+  const [isPending, startTransition] = useTransition();
 
-  const deferredKeyword = useDeferredValue(keyword);
+  const sectionHandler = (sec) => {
+    startTransition(() => {
+      setSection(sec);
+    });
+  };
 
   return (
     <>
-      <input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
-      <HeavyComponent keyword={deferredKeyword} />
+      <button onClick={() => sectionHandler("Cover")}>Book Cover</button>
+      <button onClick={() => sectionHandler("Reviews")}>Book Reviews</button>
+      <button onClick={() => sectionHandler("Writer")}>Book's Writer</button>
+
+      {isPending && "Loading..."}
+
+      {section === "Cover" ? (
+        <div>cover</div>
+      ) : section === "Reviews" ? (
+        <Reviews />
+      ) : (
+        <div>writer</div>
+      )}
     </>
   );
 }
