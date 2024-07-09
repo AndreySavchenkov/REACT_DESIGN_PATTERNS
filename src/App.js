@@ -1,13 +1,15 @@
-import { useRef } from "react";
-import { Input } from "./components/custom-input";
+import { useDeferredValue, useState } from "react";
+import { HeavyComponent } from "./components/heavy-component";
 
 function App() {
-  const inputRef = useRef();
+  const [keyword, setKeyword] = useState("");
+
+  const deferredKeyword = useDeferredValue(keyword);
 
   return (
     <>
-      <Input type="text" ref={inputRef} />
-      <button onClick={() => console.log(inputRef.current.value)}>Focus</button>
+      <input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+      <HeavyComponent keyword={deferredKeyword} />
     </>
   );
 }
