@@ -1,7 +1,7 @@
-import { useCartContext } from "./cart-context";
+import { useDispatchContext } from "./cart-context";
 
 const CartButtons = () => {
-  const { dispatch } = useCartContext();
+  const dispatch = useDispatchContext();
 
   return (
     <div>

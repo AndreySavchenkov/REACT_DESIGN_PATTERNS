@@ -1,9 +1,9 @@
-import { useCartContext } from "./cart-context";
+import { useStateContext } from "./cart-context";
 
 const Display = () => {
   const {
     state: { count },
-  } = useCartContext();
+  } = useStateContext();
 
   return <span>{count}</span>;
 };
