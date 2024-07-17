@@ -1,6 +1,6 @@
-import { useCartContext } from "../App";
+import { useCartContext } from "./cart-context";
 
-const ReducerButtons = () => {
+const CartButtons = () => {
   const { dispatch } = useCartContext();
 
   return (
@@ -11,4 +11,4 @@ const ReducerButtons = () => {
   );
 };
 
-export default ReducerButtons;
+export default CartButtons;
