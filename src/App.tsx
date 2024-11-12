@@ -1,13 +1,8 @@
-import { CartProvider } from "./components/cart-context";
-import Display from "./components/display";
-import CartButtons from "./components/cart-buttons";
+import Users from "./components/users";
 
 function App() {
   return (
-    <CartProvider>
-      <Display />
-      <CartButtons />
-    </CartProvider>
+   <Users />
   );
 }
 
