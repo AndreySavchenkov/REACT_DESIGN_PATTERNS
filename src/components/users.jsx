@@ -2,29 +2,40 @@ import React, { useEffect, useState } from "react";
 import { fetchUser } from "../api/userApi";
 import styled from "styled-components";
 import { withAsync } from "../helpers/with-async";
-
-const ApiStatus = "IDLE" | "PENDING" | "SUCCESS" | "ERROR";
+import { apiStatus } from "../constants/api-status";
+import { useApiStatus } from "../api/hooks/useApiStatus";
 
 const useFetchUsers = () => {
   const [users, setUsers] = useState([]);
-  const [fetchUserStatus, setFetchUserStatus] = useState("IDLE");
+  const {
+    status: fetchUsersStatus,
+    setStatus: setFetchUsersStatus,
+    isIdle: isFetchUsersStatusIdle,
+    isPending: isFetchUsersStatusPending,
+    isSuccess: isFetchUsersStatusSuccess,
+    isError: isFetchUsersStatusError,
+  } = useApiStatus(apiStatus.IDLE);
 
   const initFetchUsers = async () => {
-    setFetchUserStatus("PENDING");
+    setFetchUsersStatus(apiStatus.PENDING);
 
     const { response, error } = await withAsync(() => fetchUser());
 
     if (error) {
-      setFetchUserStatus("ERROR");
+      setFetchUsersStatus(apiStatus.ERROR);
     } else if (response) {
-      setFetchUserStatus("SUCCESS");
+      setFetchUsersStatus(apiStatus.SUCCESS);
       setUsers(response);
     }
   };
 
   return {
     users,
-    fetchUserStatus,
+    fetchUsersStatus,
+    isFetchUsersStatusIdle,
+    isFetchUsersStatusPending,
+    isFetchUsersStatusSuccess,
+    isFetchUsersStatusError,
     initFetchUsers,
   };
 };
@@ -62,7 +73,14 @@ const FetchButton = styled.button`
 `;
 
 function Users() {
-  const { users, fetchUserStatus, initFetchUsers } = useFetchUsers();
+  const {
+    users,
+    isFetchUsersStatusIdle,
+    isFetchUsersStatusPending,
+    isFetchUsersStatusSuccess,
+    isFetchUsersStatusError,
+    initFetchUsers,
+  } = useFetchUsers();
 
   useEffect(() => {
     initFetchUsers();
@@ -71,7 +89,7 @@ function Users() {
   return (
     <Container>
       <FetchButton onClick={initFetchUsers}>
-        {fetchUserStatus === "PENDING" ? "Loading..." : "Fetch Users"}
+        {isFetchUsersStatusPending ? "Loading..." : "Fetch Users"}
       </FetchButton>
 
       <FlexContainer>
